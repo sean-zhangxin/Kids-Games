@@ -1,0 +1,26 @@
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Node / web build
+node_modules/
+npm-debug.log*
+dist/
+build/
+.cache/
+out/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# WorkBuddy volatile cache (keep memory/ synced)
+.workbuddy/cache/
+.workbuddy/tmp/
+
+# Secrets / local env
+.env
+.env.local
+*.secret
