@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<title>Kids-Games 数据预览</title>
+<style>
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;max-width:960px;margin:24px auto;padding:0 16px;color:#1a1a1a;}
+h1{font-size:22px;border-bottom:3px solid #ff7a59;padding-bottom:8px;}
+h2{font-size:18px;margin-top:32px;color:#c0392b;}
+table{border-collapse:collapse;width:100%;font-size:13px;margin-top:8px;}
+th,td{border:1px solid #ddd;padding:6px 8px;text-align:left;vertical-align:top;}
+th{background:#fff3ee;}
+tr:nth-child(even){background:#fafafa;}
+.note{background:#fffbe6;border:1px solid #ffe58f;padding:10px 12px;border-radius:6px;font-size:13px;margin:12px 0;}
+</style></head><body>
+<h1>Kids-Games · 数据预览</h1>
+<div class="note">本页由 <code>tools/gen_data_preview.py</code> 从 <code>data/*.json</code> 自动生成，仅供右侧浏览器预览。权威源仍是仓库里的 JSON 文件。所有题目/数值均为 <b>[PLACEHOLDER]</b> 范例，待家长按真实课本扩充。</div>
+
+<h2>妖怪数值表（data/monsters.json）</h2>
+<table>
+<tr><th>名称</th><th>ID</th><th>属性(科目)</th><th>类别</th><th>小宝档LV</th><th>大宝档LV</th></tr>
+
+</table>
+
+<h2>小宝题库（data/questions/grade-1-2.json · 1-2年级）</h2>
+<table>
+<tr><th>知识点</th><th>题型</th><th>题目</th><th>选项</th><th>答案</th><th>难度</th></tr>
+<tr><td>拼音</td><td>choice</td><td>‘mā’ 的声调是第几声？</td><td>一声 / 二声 / 三声 / 四声</td><td>一声</td><td>1</td></tr>
+<tr><td>识字</td><td>choice</td><td>‘明’字由哪两部分组成？</td><td>日+月 / 日+火 / 木+子 / 人+言</td><td>日+月</td><td>1</td></tr>
+<tr><td>阅读</td><td>choice</td><td>‘小猫在睡觉。’这句话里谁在睡觉？</td><td>小狗 / 小猫 / 月亮 / 桌子</td><td>小猫</td><td>2</td></tr>
+<tr><td>加减</td><td>choice</td><td>3 + 5 = ?</td><td>7 / 8 / 9 / 15</td><td>8</td><td>1</td></tr>
+<tr><td>加减</td><td>fill</td><td>7 - 2 = ?</td><td>—</td><td>5</td><td>1</td></tr>
+<tr><td>图形</td><td>choice</td><td>下面哪个是圆形？</td><td>△ / ○ / □ / ☆</td><td>○</td><td>2</td></tr>
+<tr><td>字母</td><td>choice</td><td>字母 ‘A’ 的小写是？</td><td>a / b / c / d</td><td>a</td><td>1</td></tr>
+<tr><td>单词</td><td>speak</td><td>跟读单词：cat</td><td>—</td><td>cat</td><td>1</td></tr>
+<tr><td>单词</td><td>choice</td><td>‘apple’ 是什么意思？</td><td>苹果 / 香蕉 / 猫 / 书</td><td>苹果</td><td>2</td></tr>
+</table>
+
+<h2>大宝题库（data/questions/grade-7.json · 初一）</h2>
+<table>
+<tr><th>知识点</th><th>题型</th><th>题目</th><th>选项</th><th>答案</th><th>难度</th></tr>
+<tr><td>文言文</td><td>choice</td><td>‘学而时习之’中‘习’的意思是？</td><td>学习 / 温习 / 习惯 / 飞翔</td><td>温习</td><td>2</td></tr>
+<tr><td>阅读</td><td>choice</td><td>阅读：‘他像一头牛一样勤劳。’用了什么修辞？</td><td>比喻 / 夸张 / 排比 / 反问</td><td>比喻</td><td>3</td></tr>
+<tr><td>字词</td><td>fill</td><td>‘锲而不舍’的‘锲’读音是（拼音）？</td><td>—</td><td>qiè</td><td>2</td></tr>
+<tr><td>分数</td><td>fill</td><td>1/2 + 1/3 = ?（写分数）</td><td>—</td><td>5/6</td><td>3</td></tr>
+<tr><td>方程</td><td>choice</td><td>方程 2x + 4 = 10 的解是？</td><td>x=2 / x=3 / x=4 / x=5</td><td>x=3</td><td>3</td></tr>
+<tr><td>几何</td><td>choice</td><td>直角三角形中最长的边叫？</td><td>直角边 / 斜边 / 底边 / 腰</td><td>斜边</td><td>2</td></tr>
+<tr><td>时态</td><td>choice</td><td>‘go’ 的过去式是？</td><td>goed / went / gone / going</td><td>went</td><td>2</td></tr>
+<tr><td>词汇</td><td>speak</td><td>跟读单词：beautiful</td><td>—</td><td>beautiful</td><td>2</td></tr>
+<tr><td>语法</td><td>choice</td><td>‘Although it rained, we went out.’ 中 Although 表示？</td><td>因果 / 转折 / 并列 / 时间</td><td>转折</td><td>3</td></tr>
+</table>
+</body></html>
