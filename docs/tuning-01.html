@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数值调校表 01 · 妖怪 RPG</title>
+<style>
+  :root{
+    --bg:#fbfbfd; --card:#ffffff; --ink:#1f2330; --muted:#6b7280;
+    --line:#e5e7eb; --accent:#6d28d9; --anchor:#057a55; --ph:#b45309;
+    --anchor-bg:#ecfdf5; --ph-bg:#fffbeb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;
+    line-height:1.55;padding:28px 18px 60px}
+  .wrap{max-width:980px;margin:0 auto}
+  h1{font-size:24px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:22px}
+  h2{font-size:18px;margin:30px 0 10px;padding-left:10px;border-left:4px solid var(--accent)}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;overflow:hidden;font-size:13.5px;margin-bottom:6px}
+  th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#f3f4f6;font-weight:600;color:#374151;font-size:12.5px}
+  tr:last-child td{border-bottom:none}
+  code{background:#f1f1f4;padding:1px 5px;border-radius:4px;font-size:12.5px;color:#7c3aed}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+  .anchor{background:var(--anchor-bg);color:var(--anchor);border:1px solid #a7f3d0}
+  .ph{background:var(--ph-bg);color:var(--ph);border:1px solid #fde68a}
+  .note{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;
+    font-size:13px;color:#92600a;margin:10px 0}
+  .callout{background:#eef2ff;border:1px solid #c7d2fe;border-radius:8px;padding:10px 14px;
+    font-size:13px;color:#3730a3;margin:12px 0}
+  ul{font-size:13.5px;margin:6px 0 6px 18px;padding:0}
+  li{margin:3px 0}
+  .legend{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+  .formula{background:#f3f4f6;border-radius:8px;padding:12px 14px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:#1f2330;margin:8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>数值调校表 01（Tuning Sheet 01）</h1>
+  <div class="sub">版本 v0.1 · 2026-08-09 · 进 Godot 前固化所有数值假设 · 配套 <code>paper-prototype-02</code> v0.3</div>
+
+  <div class="legend">
+    状态图例：<span class="tag anchor">ANCHOR</span> 已与用户拍板锁死 ·
+    <span class="tag ph">PLACEHOLDER</span> 未验证假设，真机校准后替换
+  </div>
+
+  <div class="callout">
+    🔒 <b>纪律红线</b>：克制倍率永远不受 LV 影响——改 LV 曲线不动倍率，否则年长练级碾压年幼。
+  </div>
+
+  <h2>1. 伤害模型</h2>
+  <table>
+    <tr><th>变量</th><th>Base</th><th>Min</th><th>Max</th><th>Rationale</th><th>状态</th></tr>
+    <tr><td>克制倍率·克制</td><td>×1.5</td><td>—</td><td>—</td><td>三系 RPS 固定值，与 LV 无关</td><td><span class="tag anchor">ANCHOR</span></td></tr>
+    <tr><td>克制倍率·被克</td><td>×0.67</td><td>—</td><td>—</td><td>≈2/3 凑整好算</td><td><span class="tag anchor">ANCHOR</span></td></tr>
+    <tr><td>克制倍率·同级</td><td>×1.0</td><td>—</td><td>—</td><td>同属性互打无加成</td><td><span class="tag anchor">ANCHOR</span></td></tr>
+    <tr><td>命中系数·答对</td><td>1.0</td><td>—</td><td>—</td><td>答对=本回合全额伤害</td><td><span class="tag anchor">ANCHOR</span></td></tr>
+    <tr><td>命中系数·答错</td><td>0.0</td><td>—</td><td>—</td><td>答错=0 伤害 + 己方挨打</td><td><span class="tag anchor">ANCHOR</span></td></tr>
+    <tr><td>基础 ATK(LV)</td><td><code>10+2×LV</code></td><td><code>8+1×LV</code></td><td><code>14+3×LV</code></td><td>初值种子 LV1≈12 / LV5≈20 / LV10≈30，使单场 3–6 回合</td><td><span class="tag ph">PLACEHOLDER</span></td></tr>
+    <tr><td>最大 HP(LV)</td><td><code>40+8×LV</code></td><td><code>30+6×LV</code></td><td><code>60+12×LV</code></td><td>初值种子 LV1≈48 / LV5≈80 / LV10≈120</td><td><span class="tag ph">PLACEHOLDER</span></td></tr>
+  </table>
+  <div class="formula">伤害 = 基础ATK(LV) × 克制倍率 × 命中系数 ｜ 敌方反击同理，用「敌方属性 vs 我方属性」查表</div>
+
+  <h2>2. 等级与经验</h2>
+  <table>
+    <tr><th>变量</th><th>Base</th><th>Min</th><th>Max</th><th>Rationale</th><th>状态</th></tr>
+    <tr><td>单题答对 EXP</td><td>10</td><td>5</td><td>20</td><td>一场 4 题 ≈ 40 EXP</td><td><span class="tag ph">PLACEHOLDER</span></td></tr>
+    <tr><td>击败野怪 EXP</td><td><code>20+5×敌LV</code></td><td><code>10+3×敌LV</code></td><td><code>40+8×敌LV</code></td><td>收尾额外奖励</td><td><span class="tag ph">PLACEHOLDER</span></td></tr>
+    <tr><td>升级所需累计 EXP</td><td><code>100×(目标LV−1)</code></td><td>—</td><td>—</td><td>LV1→2=100 / LV5→6=500，需验算是否过慢</td><td><span class="tag ph">PLACEHOLDER</span></td></tr>
+  </table>
+
+  <h2>3. 进化双门槛（等级 AND 考试）</h2>
+  <table>
+    <tr><th>门槛</th><th>变量</th><th>Base</th><th>Min</th><th>Max</th><th>Rationale</th><th>状态</th></tr>
+    <tr><td>等级</td><td>T_LV</td><td>8</td><td>5</td><td>12</td><td>约 10–15 场收尾；太低绕过考试/太高卡墙</td><td><span class="tag ph">PLACEHOLDER</span></td></tr>
+    <tr><td>考试</td><td>题数 N</td><td>5</td><td>3</td><td>8</td><td>覆盖 ≥3 知识点</td><td><span class="tag ph">PLACEHOLDER</span></td></tr>
+    <tr><td>考试</td><td>正确率 X%</td><td>80%</td><td>70%</td><td>90%</td><td>&lt;70% 形同虚设 / &gt;90% 低龄劝退</td><td><span class="tag ph">PLACEHOLDER</span></td></tr>
+    <tr><td>考试</td><td>整体限时 T</td><td>90s</td><td>60s</td><td>120s</td><td>选择题子题仍套 10s</td><td><span class="tag ph">PLACEHOLDER</span></td></tr>
+  </table>
+  <div class="note">双门槛关系 = <b>等级 AND 考试</b>（<span class="tag anchor">ANCHOR</span>，用户拍板"两者都要"）。考试抽本妖怪属性科目 + 登录身份年级池；不达标可重考、软惩罚无损失。</div>
+
+  <h2>4. 题型 → 答题限制</h2>
+  <table>
+    <tr><th>题型</th><th>限制</th><th>Base</th><th>状态</th></tr>
+    <tr><td>选择题</td><td>统一倒计时</td><td>10s</td><td><span class="tag anchor">ANCHOR</span></td></tr>
+    <tr><td>填空题</td><td>尝试次数上限</td><td>K = 3</td><td><span class="tag anchor">ANCHOR</span></td></tr>
+    <tr><td>跟读 / 听音（英）</td><td>录制次数上限</td><td>M = 2</td><td><span class="tag anchor">ANCHOR</span></td></tr>
+    <tr><td>连线 / 拖拽</td><td>无时限</td><td>—</td><td><span class="tag anchor">ANCHOR</span></td></tr>
+  </table>
+  <div class="note">超时/超限统一结算 = miss（己方挨打、本回合 0 伤害），复用软惩罚。<b>监控信号 F</b>：即便题库适龄，10s 仍可能压低龄——盯小宝是否因计时焦虑乱点。</div>
+
+  <h2>5. 收服与经济</h2>
+  <table>
+    <tr><th>变量</th><th>Base</th><th>Min</th><th>Max</th><th>Rationale</th><th>状态</th></tr>
+    <tr><td>收服触发 HP 阈值</td><td>≤30%</td><td>≤20%</td><td>≤50%</td><td>削弱到三成血弹窗</td><td><span class="tag ph">PLACEHOLDER</span></td></tr>
+    <tr><td>知识结晶·单题（难度 d）</td><td>d（1..5）</td><td>—</td><td>—</td><td>难题给多造"想挑战"动机</td><td><span class="tag ph">PLACEHOLDER</span></td></tr>
+    <tr><td>捕获球·每日登录</td><td>3</td><td>1</td><td>5</td><td>防无限刷</td><td><span class="tag ph">PLACEHOLDER</span></td></tr>
+    <tr><td>伤药·结晶兑换比</td><td>5:1</td><td>—</td><td>—</td><td>回血 sink 耗结晶</td><td><span class="tag ph">PLACEHOLDER</span></td></tr>
+  </table>
+
+  <h2>6. 纸面平衡模拟（进引擎前先验算）</h2>
+  <p style="font-size:13.5px">场景：小宝火灵狐 LV5（ATK=20、HP=80）打数学野怪 LV3（ATK=16、HP=64）。双方互被克（×0.67），公平。</p>
+  <table class="sim">
+    <tr><th>回合</th><th>玩家命中</th><th>野怪受伤</th><th>野怪反击</th><th>火灵狐受伤</th></tr>
+    <tr><td>1</td><td>20×0.67≈13</td><td>64→51</td><td>16×0.67≈11</td><td>80→69</td></tr>
+    <tr><td>2</td><td>13</td><td>51→38</td><td>11</td><td>69→58</td></tr>
+    <tr><td>3</td><td>13</td><td>38→25</td><td>11</td><td>58→47</td></tr>
+    <tr><td>4</td><td>13</td><td>25→12</td><td>11</td><td>47→36</td></tr>
+    <tr><td>5</td><td>13</td><td>12→≤0</td><td>—</td><td>收服窗</td></tr>
+  </table>
+  <p style="font-size:13.5px">→ 约 <b>5 回合</b>收尾，符合预期；单场 ≈ 85 EXP。距 LV6（需 500）约再 5 场；进化还需过语文综合考（5 题 @80%）。初值节奏合理，但 <b>T_LV=8</b> 是否过高需真机看信号 D；若两周内触发不了首次进化，优先下调 T_LV。</p>
+
+  <h2>7. 已知缺口 / 待补</h2>
+  <ul>
+    <li><b>敌方妖怪数值表</b>：按 biome / 年龄的 HP·ATK·招式表未建 → 进 MVP 补 <code>data/monsters.json</code></li>
+    <li><b>题库 schema 的 topic 轴</b>：综合考"覆盖 ≥3 知识点"需每题打 topic 标签 → 出题库 schema 时补</li>
+    <li><b>§11 走查伤害一致性</b>：原型示例伤害未套倍率，需回原型重算</li>
+    <li><b>进化演出数值增量</b>：进化后 HP/ATK 提升多少、解锁什么招式 → 接进化系统时任定 <code>[PLACEHOLDER]</code></li>
+  </ul>
+
+  <h2>8. 变更日志</h2>
+  <ul>
+    <li><b>v0.1 (2026-08-09)</b>：首次建立。汇总 pp-02 v0.3 全部数值假设；锁死 ANCHOR；其余列 PLACEHOLDER 初值种子 + §6 模拟。</li>
+  </ul>
+</div>
+</body>
+</html>
