@@ -53,16 +53,27 @@
 - **工程文件是文本**（`.tscn` 场景、`.gd` 脚本、资源文件），天然适合 Git + SSH 同步到 GitHub，跨设备接力开发。
 - 不强制「纯前端」：引擎开发同样满足轻量与离线。
 
-## 📁 目录规划（待填充）
+## 📁 目录规划
+
+当前仓库（设计 + 数据阶段）结构：
 
 ```
-kids-monster-rpg/        # Godot 工程根目录（单工程，双孩内容数据分流）
-  data/                  # 数据驱动：题库 / 妖怪 / 克制表（JSON，12岁可改）
-  scenes/                # 战斗 / 收服 / 进化 / 基地 场景
-  ...
+docs/                              # 设计文档：纸上原型 / 数值调校表
+  paper-prototype-02-battle-loop.* # 妖怪 RPG 战斗循环（v0.3）
+  tuning-01.*                      # 数值调校表（ANCHOR + [PLACEHOLDER]）
+data/                              # 数据驱动：妖怪 / 题库（JSON，12岁可改）
+  monsters.json                    # 妖怪数值表（starter / wild / trainer）
+  question-schema.json            # 题目结构 JSON Schema（加题校验用）
+  questions/
+    grade-1-2.json                # 小宝（1–2年级）题库
+    grade-7.json                  # 大宝（初一）题库
+kids-monster-rpg/                  # （待建）Godot 工程根目录
+  data/                           # 工程数据目录，将复用上面的 data/
+  scenes/                         # 战斗 / 收服 / 进化 / 基地 场景
 ```
 
-> Godot 工程文件与导出产物按 `.gitignore` 规则管理：**源码入库，构建产物忽略**。
+> 数据文件已先行落地，Godot 工程建好后直接读取 `data/`。工程文件与导出产物按 `.gitignore` 规则管理：**源码入库，构建产物忽略**。
+> 如何增删妖怪 / 题目见 `docs/data-index.md`。
 
 ## 🚀 如何运行
 

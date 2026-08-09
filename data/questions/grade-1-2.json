@@ -1,0 +1,18 @@
+{
+  "_meta": {
+    "grade": "grade-1-2",
+    "identity": "小宝（7岁，1–2年级）",
+    "note": "示范数据：每科仅 3 题、覆盖 2–3 个 topic，仅供 MVP 验证战斗/收服/进化循环。综合考需≥3知识点覆盖，请家长按真实课本扩充到每科≥10题、topic≥4。"
+  },
+  "questions": [
+    {"id": "cn-g12-01", "subject": "chinese", "grade": "grade-1-2", "topic": "拼音", "difficulty": 1, "type": "choice", "stem": "‘mā’ 的声调是第几声？", "options": ["一声", "二声", "三声", "四声"], "answer": "一声", "rationale": "mā 是阴平，第一声。"},
+    {"id": "cn-g12-02", "subject": "chinese", "grade": "grade-1-2", "topic": "识字", "difficulty": 1, "type": "choice", "stem": "‘明’字由哪两部分组成？", "options": ["日+月", "日+火", "木+子", "人+言"], "answer": "日+月", "rationale": "明 = 日 + 月。"},
+    {"id": "cn-g12-03", "subject": "chinese", "grade": "grade-1-2", "topic": "阅读", "difficulty": 2, "type": "choice", "stem": "‘小猫在睡觉。’这句话里谁在睡觉？", "options": ["小狗", "小猫", "月亮", "桌子"], "answer": "小猫", "rationale": "主语是小猫。"},
+    {"id": "ma-g12-01", "subject": "math", "grade": "grade-1-2", "topic": "加减", "difficulty": 1, "type": "choice", "stem": "3 + 5 = ?", "options": ["7", "8", "9", "15"], "answer": "8", "rationale": "3 + 5 = 8。"},
+    {"id": "ma-g12-02", "subject": "math", "grade": "grade-1-2", "topic": "加减", "difficulty": 1, "type": "fill", "stem": "7 - 2 = ?", "answer": "5", "rationale": "7 减 2 等于 5。"},
+    {"id": "ma-g12-03", "subject": "math", "grade": "grade-1-2", "topic": "图形", "difficulty": 2, "type": "choice", "stem": "下面哪个是圆形？", "options": ["△", "○", "□", "☆"], "answer": "○", "rationale": "○ 是圆形。"},
+    {"id": "en-g12-01", "subject": "english", "grade": "grade-1-2", "topic": "字母", "difficulty": 1, "type": "choice", "stem": "字母 ‘A’ 的小写是？", "options": ["a", "b", "c", "d"], "answer": "a", "rationale": "A 的小写是 a。"},
+    {"id": "en-g12-02", "subject": "english", "grade": "grade-1-2", "topic": "单词", "difficulty": 1, "type": "speak", "stem": "跟读单词：cat", "answer": "cat", "rationale": "猫。"},
+    {"id": "en-g12-03", "subject": "english", "grade": "grade-1-2", "topic": "单词", "difficulty": 2, "type": "choice", "stem": "‘apple’ 是什么意思？", "options": ["苹果", "香蕉", "猫", "书"], "answer": "苹果", "rationale": "apple = 苹果。"}
+  ]
+}

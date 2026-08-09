@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://kids-games.local/question-schema.json",
+  "title": "Question",
+  "description": "课程挑战题目结构。题库按年级分文件（grade-1-2.json / grade-7.json），引擎按登录身份路由。topic 轴用于综合考覆盖≥3知识点。",
+  "type": "object",
+  "required": ["id", "subject", "grade", "topic", "difficulty", "type", "stem", "answer"],
+  "properties": {
+    "id": {"type": "string", "description": "题唯一ID，建议 科目-年级-序号"},
+    "subject": {"type": "string", "enum": ["chinese", "math", "english"], "description": "战斗属性=科目（chinese=语文/math=数学/english=英语）"},
+    "grade": {"type": "string", "enum": ["grade-1-2", "grade-7"], "description": "对应登录身份年级档，决定本题被哪个身份抽到"},
+    "topic": {"type": "string", "description": "知识点轴（如 拼音/识字/分数/方程）。综合考靠它保证覆盖≥3个不同topic"},
+    "difficulty": {"type": "integer", "minimum": 1, "maximum": 5, "description": "难度档，驱动知识结晶掉落量（d 结晶）"},
+    "type": {"type": "string", "enum": ["choice", "fill", "match", "speak"], "description": "题型：choice选择题(统一10s)/fill填空(限3次)/match连线(无时限)/speak跟读(限2次)"},
+    "stem": {"type": "string", "description": "题干"},
+    "options": {"type": "array", "items": {"type": "string"}, "description": "choice 用，选项列表"},
+    "answer": {"type": "string", "description": "标准答案：choice=选项文本；fill=字符串；match=配对描述；speak=标准词/音素"},
+    "rationale": {"type": "string", "description": "解析，答错时给软提示"}
+  },
+  "allOf": [
+    {"if": {"properties": {"type": {"const": "choice"}}}, "then": {"required": ["options"]}}
+  ]
+}

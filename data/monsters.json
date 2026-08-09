@@ -1,0 +1,25 @@
+{
+  "_meta": {
+    "description": "敌方妖怪与玩家初始妖怪数值表（数据驱动，供 Godot MVP 读取）。HP/ATK 由公式派生（见 tuning-01 §1，全部 [PLACEHOLDER] 初值）：ATK = 10 + 2*level，HP = 40 + 8*level。",
+    "level_by_profile": "每只怪带 level_by_profile：键为登录身份对应的年级档（grade-1-2=小宝，grade-7=大宝）。引擎 spawn 时取对应档 level 按公式算 HP/ATK。这就是「难度按年龄调」的实现——同怪在小宝世界低等级、大宝世界高等级。",
+    "attribute_system": "attribute 取值 chinese/math/english，对应语文/数学/英语三系 RPS：语文>英语>数学>语文（见 paper-prototype-02 §4）。",
+    "catch_threshold": "收服触发 HP 阈值全局取 tuning-01 §5 的 ≤30%（[PLACEHOLDER]），本表不重复设。",
+    "move_types": "move_types 即该怪出招时会抽的题型（choice/fill/match/speak），引擎据此从对应 grade 题库抽题。"
+  },
+  "starters": [
+    {"id": "fox_ling", "name": "火灵狐", "attribute": "chinese", "level_by_profile": {"grade-1-2": 3, "grade-7": 5}, "move_types": ["choice", "fill"]},
+    {"id": "moss_dot", "name": "墨点点", "attribute": "math", "level_by_profile": {"grade-1-2": 3, "grade-7": 5}, "move_types": ["choice", "fill"]},
+    {"id": "tide_drop", "name": "潮滴滴", "attribute": "english", "level_by_profile": {"grade-1-2": 3, "grade-7": 5}, "move_types": ["choice", "speak"]}
+  ],
+  "wild": [
+    {"id": "moss_dot_w", "name": "墨点点", "attribute": "math", "biome": "meadow", "level_by_profile": {"grade-1-2": 2, "grade-7": 6}, "move_types": ["choice", "fill"]},
+    {"id": "fox_ling_w", "name": "火灵狐", "attribute": "chinese", "biome": "meadow", "level_by_profile": {"grade-1-2": 2, "grade-7": 6}, "move_types": ["choice", "fill"]},
+    {"id": "tide_drop_w", "name": "潮滴滴", "attribute": "english", "biome": "water", "level_by_profile": {"grade-1-2": 3, "grade-7": 7}, "move_types": ["choice", "speak"]},
+    {"id": "beetle_num", "name": "数甲虫", "attribute": "math", "biome": "forest", "level_by_profile": {"grade-1-2": 4, "grade-7": 9}, "move_types": ["choice", "fill"]},
+    {"id": "verse_bird", "name": "诗羽鸟", "attribute": "chinese", "biome": "forest", "level_by_profile": {"grade-1-2": 4, "grade-7": 9}, "move_types": ["choice", "match"]},
+    {"id": "word_wisp", "name": "词灵", "attribute": "english", "biome": "forest", "level_by_profile": {"grade-1-2": 4, "grade-7": 9}, "move_types": ["choice", "speak"]}
+  ],
+  "trainers": [
+    {"id": "tr_math_teacher", "name": "数学老师", "team": [{"id": "beetle_num", "level_by_profile": {"grade-1-2": 5, "grade-7": 10}, "move_types": ["choice", "fill"]}]}
+  ]
+}

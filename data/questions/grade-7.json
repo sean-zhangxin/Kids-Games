@@ -1,0 +1,18 @@
+{
+  "_meta": {
+    "grade": "grade-7",
+    "identity": "大宝（12岁，初一）",
+    "note": "示范数据：每科 3 题、覆盖 2–3 个 topic。请家长/学生按初一课本扩充到每科≥10题、topic≥4，以满足综合考≥3知识点覆盖。"
+  },
+  "questions": [
+    {"id": "cn-g7-01", "subject": "chinese", "grade": "grade-7", "topic": "文言文", "difficulty": 2, "type": "choice", "stem": "‘学而时习之’中‘习’的意思是？", "options": ["学习", "温习", "习惯", "飞翔"], "answer": "温习", "rationale": "习 = 温习、复习。"},
+    {"id": "cn-g7-02", "subject": "chinese", "grade": "grade-7", "topic": "阅读", "difficulty": 3, "type": "choice", "stem": "阅读：‘他像一头牛一样勤劳。’用了什么修辞？", "options": ["比喻", "夸张", "排比", "反问"], "answer": "比喻", "rationale": "把人比作牛，是比喻。"},
+    {"id": "cn-g7-03", "subject": "chinese", "grade": "grade-7", "topic": "字词", "difficulty": 2, "type": "fill", "stem": "‘锲而不舍’的‘锲’读音是（拼音）？", "answer": "qiè", "rationale": "qiè，雕刻之意。"},
+    {"id": "ma-g7-01", "subject": "math", "grade": "grade-7", "topic": "分数", "difficulty": 3, "type": "fill", "stem": "1/2 + 1/3 = ?（写分数）", "answer": "5/6", "rationale": "通分 3/6 + 2/6 = 5/6。"},
+    {"id": "ma-g7-02", "subject": "math", "grade": "grade-7", "topic": "方程", "difficulty": 3, "type": "choice", "stem": "方程 2x + 4 = 10 的解是？", "options": ["x=2", "x=3", "x=4", "x=5"], "answer": "x=3", "rationale": "2x = 6，x = 3。"},
+    {"id": "ma-g7-03", "subject": "math", "grade": "grade-7", "topic": "几何", "difficulty": 2, "type": "choice", "stem": "直角三角形中最长的边叫？", "options": ["直角边", "斜边", "底边", "腰"], "answer": "斜边", "rationale": "直角对边为斜边，最长。"},
+    {"id": "en-g7-01", "subject": "english", "grade": "grade-7", "topic": "时态", "difficulty": 2, "type": "choice", "stem": "‘go’ 的过去式是？", "options": ["goed", "went", "gone", "going"], "answer": "went", "rationale": "go 过去式 went。"},
+    {"id": "en-g7-02", "subject": "english", "grade": "grade-7", "topic": "词汇", "difficulty": 2, "type": "speak", "stem": "跟读单词：beautiful", "answer": "beautiful", "rationale": "/ˈbjuːtɪfl/。"},
+    {"id": "en-g7-03", "subject": "english", "grade": "grade-7", "topic": "语法", "difficulty": 3, "type": "choice", "stem": "‘Although it rained, we went out.’ 中 Although 表示？", "options": ["因果", "转折", "并列", "时间"], "answer": "转折", "rationale": "尽管…但是，转折关系。"}
+  ]
+}
