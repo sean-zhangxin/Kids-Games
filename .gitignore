@@ -16,11 +16,17 @@ out/
 .idea/
 *.swp
 
-# WorkBuddy volatile cache (keep memory/ synced)
-.workbuddy/cache/
-.workbuddy/tmp/
+# WorkBuddy agent local (memory/cache 留在本地，不进仓库)
+.workbuddy/
 
 # Secrets / local env
 .env
 .env.local
 *.secret
+
+# Godot
+.godot/
+*.import
+# 导出产物不入库（源码入库，构建包忽略）
+export/
+builds/
