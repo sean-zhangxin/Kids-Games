@@ -3,149 +3,173 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>纸上原型 02 v0.2 · 妖怪 RPG 战斗循环</title>
+<title>纸上原型 02 v0.3 · 妖怪 RPG 战斗+收服+进化</title>
 <style>
-  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;max-width:880px;margin:24px auto;padding:0 16px;color:#1f2933;line-height:1.7;}
-  h1{font-size:24px;border-bottom:3px solid #f59e0b;padding-bottom:8px;}
-  h2{font-size:19px;margin-top:28px;color:#b45309;}
-  h3{font-size:16px;color:#92400e;}
-  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px;}
-  th,td{border:1px solid #e5e7eb;padding:8px 10px;text-align:left;vertical-align:top;}
-  th{background:#fffbeb;}
-  blockquote{background:#fef3c7;border-left:4px solid #f59e0b;margin:12px 0;padding:10px 14px;color:#78350f;}
-  code{background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:13px;}
-  .tag{display:inline-block;background:#f59e0b;color:#fff;border-radius:4px;padding:2px 8px;font-size:12px;}
-  ul{margin:8px 0;}
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; max-width: 920px; margin: 0 auto; padding: 24px; color: #1f2937; line-height: 1.65; }
+  h1 { font-size: 24px; border-bottom: 3px solid #f59e0b; padding-bottom: 8px; }
+  h2 { font-size: 19px; margin-top: 32px; color: #b45309; }
+  .ver { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 10px 14px; border-radius: 4px; font-size: 14px; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 14px; }
+  th, td { border: 1px solid #e5e7eb; padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #f3f4f6; }
+  code { background: #f3f4f6; padding: 1px 5px; border-radius: 3px; font-size: 13px; }
+  .ph { color: #dc2626; font-weight: 600; }
+  .intended { color: #16a34a; font-weight: 600; }
+  .risk { color: #dc2626; font-weight: 600; }
+  .ok { color: #2563eb; font-weight: 600; }
+  blockquote { background: #fffbeb; border-left: 4px solid #fcd34d; margin: 14px 0; padding: 8px 14px; }
+  ul { font-size: 14px; }
 </style>
 </head>
 <body>
-<h1>纸上原型 02 v0.2：妖怪 RPG 战斗 + 收服 + 进化 循环</h1>
-<p><span class="tag">纸面走查</span> 2026-08-09 · 未写代码</p>
-<blockquote>
-<b>相对 v0.1 的变更（本次对齐）：</b><br>
-1. <b>砍掉建造元层</b>——聚焦妖怪 RPG 主线。<br>
-2. <b>双孩年级确认</b>：小宝 = 1–2 年级；大宝 = 初一。<br>
-3. <b>战斗属性 = 科目</b>：语/数/英 三系直接当属性，克制环 <b>语文 &gt; 英语 &gt; 数学 &gt; 语文</b>，两孩共用。<br>
-4. <b>等级（LV）只涨 HP/ATK，不碰克制倍率</b>——防年长练级碾压年幼。<br>
-5. <b>不纠结克制逻辑合理性</b>——孩子只图爽，三系 RPS 是纯乐趣机制。
-</blockquote>
+<h1>纸上原型 02：妖怪 RPG 战斗 + 收服 + 进化 循环</h1>
+<div class="ver">
+<strong>版本</strong>：v0.3 · 2026-08-09 · 纸面走查，未写代码<br>
+<strong>本次变更</strong>：① 身份即题库路由（登录身份决定年级与题库，单一路由键）；② 进化改双门槛（等级 AND 学科综合考试）；③ 题型→限制映射（选择题统一倒计时等）。
+</div>
 
 <h2>1. Fun Hypothesis</h2>
-<p><b>这游戏好玩的核心是</b>——用课程题当妖怪的「招式」去打怪：答对=出招命中、答错=己方挨打，打赢攒经验升级，攒够条件看妖怪进化变形变强。</p>
+<p>这游戏好玩的核心是——用课程题当妖怪的「招式」去打怪：答对=出招命中、答错=己方挨打，打赢攒经验升级，攒够<strong>等级 + 学科考试</strong>双门槛看妖怪进化变形变强。孩子把学习体验成「让自己的妖怪变厉害、打赢、进化」的战斗力量。</p>
 
 <h2>2. Design Pillars</h2>
 <table>
 <tr><th>#</th><th>支柱</th><th>说明</th></tr>
 <tr><td>1</td><td>同一世界、共同冒险（各自进度）</td><td>两孩玩同一套机制、同一主题世界，进度各算、资源各池</td></tr>
-<tr><td>2</td><td>收服 → 战斗 → 升级 → 进化 主循环</td><td>正宗妖怪收集 RPG</td></tr>
+<tr><td>2</td><td>收服→战斗→升级→进化（双门槛）主循环</td><td>正宗妖怪收集 RPG；进化需等级 AND 考试</td></tr>
 <tr><td>3</td><td>学习即战力</td><td>课程题 = 出招；答对命中、答错己方挨打</td></tr>
-<tr><td>4</td><td>内容双轨分流</td><td>同壳战斗机制，按年龄/年级自动换题</td></tr>
+<tr><td>4</td><td>身份即题库路由</td><td>登录身份决定年级与题库，单一路由键，无手动切换</td></tr>
 <tr><td>5</td><td>进化是可见大奖</td><td>形态 + 数值变化，孩子最爱的部分，核心留存钩子</td></tr>
 </table>
 
 <h2>3. 核心循环</h2>
 <ul>
-<li><b>Moment-to-Moment（每回合几秒~几十秒）</b>：遭遇妖怪 → 每回合弹出一道按孩子分流的科目题 → 答对=己方造成 伤害、答错=己方挨 伤害（敌方也按克制关系出招）→ 一方 HP 归零结束回合</li>
-<li><b>Session（开放式，不限时长）</b>：打完几只野怪 → 攒够 XP 升 1–2 级 → 收服进度 + 图鉴 +1</li>
-<li><b>Long-term（hours–weeks）</b>：图鉴收集 + 进化树（形态变化）+ 每日新妖怪刷新（留存钩子）</li>
+<li><strong>Moment-to-Moment</strong>：遭遇妖怪 → 每回合弹出一道按登录身份分流的科目题 → 答对=造成伤害、答错=己方挨打 → 一方 HP 归零结束回合</li>
+<li><strong>Session（开放式）</strong>：打完几只野怪 → 攒 XP 升 1–2 级 → 收服进度 + 图鉴 +1</li>
+<li><strong>Long-term</strong>：图鉴收集 + 进化树（形态变化）+ 每日新妖怪刷新</li>
 </ul>
 
 <h2>4. 战斗属性克制（语数英 三系）</h2>
 <table>
-<tr><th>攻击 \ 防守</th><th>语文</th><th>数学</th><th>英语</th></tr>
-<tr><th>语文</th><td>×1.0</td><td>×0.67</td><td><b>×1.5</b></td></tr>
-<tr><th>数学</th><td><b>×1.5</b></td><td>×1.0</td><td>×0.67</td></tr>
-<tr><th>英语</th><td>×0.67</td><td><b>×1.5</b></td><td>×1.0</td></tr>
+<tr><th>攻击\防守</th><th>语文</th><th>数学</th><th>英语</th></tr>
+<tr><td><strong>语文</strong></td><td>×1.0</td><td>×0.67</td><td><strong>×1.5</strong></td></tr>
+<tr><td><strong>数学</strong></td><td><strong>×1.5</strong></td><td>×1.0</td><td>×0.67</td></tr>
+<tr><td><strong>英语</strong></td><td>×0.67</td><td><strong>×1.5</strong></td><td>×1.0</td></tr>
 </table>
-<p>克制环 = <b>语文 &gt; 英语 &gt; 数学 &gt; 语文</b>。</p>
-<p><code>伤害 = 基础ATK(等级) × 克制倍率 × 命中系数（答对=1.0 / 答错=0）</code></p>
-<p><b>等级（LV）纪律</b>：LV 只决定 <code>基础ATK</code> 与 <code>最大HP</code> 的基线斜率；<b>克制倍率恒为 ×1.5 / ×0.67 / ×1.0，不受 LV 影响</b>。大宝 LV50 也吃不满对小宝 LV5 的克制亏，选对属性永远比堆级更值。</p>
-<blockquote>倍率、ATK 曲线、经验曲线全部 <code>[PLACEHOLDER]</code>（先假设 克制 ×1.5 / 被克 ×0.67，真机校准）。</blockquote>
+<p>克制环 = <strong>语文 &gt; 英语 &gt; 数学 &gt; 语文</strong>。伤害 = 基础ATK(等级) × 克制倍率 × 命中系数；命中系数答对=1.0、答错=0。<br>
+<strong>LV 纪律</strong>：LV 只决定基础ATK/最大HP 基线；<strong>克制倍率恒 ×1.5/×0.67/×1.0，不受 LV 影响</strong>，选对属性永远比堆级更值。倍率、ATK、经验曲线全部 <span class="ph">[PLACEHOLDER]</span>。</p>
 
-<h2>5. 失败 / 惩罚模型（用户要求"有惩罚"）</h2>
+<h2>5. 失败 / 惩罚模型</h2>
 <table>
 <tr><th>事件</th><th>后果</th><th>性质</th></tr>
-<tr><td>己方妖怪 HP 归零（昏厥）</td><td>撤退回基地；本次无 XP / 未收服；<b>收藏不丢</b></td><td>软惩罚（Pokémon 式）</td></tr>
-<tr><td>收服失败（挣脱）</td><td>野生妖怪回少量血，可再战/再捕，多耗 1 回合</td><td>软惩罚、可重试</td></tr>
-<tr><td>训练师战胜玩家</td><td>玩家「回基地」，无永久损失</td><td>软惩罚</td></tr>
+<tr><td>妖怪 HP 归零（昏厥）</td><td>战斗失败撤退回基地；无 XP/未收服；收藏不丢</td><td>软惩罚</td></tr>
+<tr><td>收服失败（挣脱）</td><td>野生妖怪回少量血，可再战/再捕</td><td>软惩罚、可重试</td></tr>
+<tr><td>训练师战胜玩家</td><td>玩家回基地，无永久损失</td><td>软惩罚</td></tr>
+<tr><td>答题超时 / 超限（§8）</td><td>该回合 = miss（己方挨打、0 伤害）</td><td>软惩罚，复用同结算</td></tr>
 </table>
-<p><b>难度按年龄调</b>（公平非劝退）：小宝打弱怪（低 HP）+ 1–2 年级题；大宝打强怪（高 HP、多招式）+ 初一题。</p>
 
 <h2>6. 收服机制</h2>
-<ul>
-<li>野生妖怪 HP 削弱到阈值（例 ≤30% <code>[PLACEHOLDER]</code>）后弹出「收服！」窗口</li>
-<li>收服动作 = 答一道稍难的该科目题；答对=入队，答错=挣脱可再捕</li>
-<li>收服后入队，可继续升级 / 进化</li>
-</ul>
+<p>野生妖怪 HP 削弱到阈值（≤30% <span class="ph">[PLACEHOLDER]</span>）后弹「收服！」窗口；收服 = 答一道稍难的该科目题；答对入队、答错挣脱可再捕。</p>
 
-<h2>7. 进化（孩子最爱，重点设计）</h2>
-<ul>
-<li><b>触发</b>：达到等级阈值（例 Lv16 <code>[PLACEHOLDER]</code>）且 学科掌握度 ≥ 阈值（例 80% <code>[PLACEHOLDER]</code>）</li>
-<li><b>演出</b>：变形动画 + 新形态（更大 / 换色 / 换部件）+ 数值提升（HP / ATK）+ 解锁新「招式类型」（新题类）</li>
-<li><b>意义</b>：留存钩子核心，也是「学习变强」最强正反馈</li>
-</ul>
-
-<h2>8. 双孩题目分流</h2>
+<h2>7. 进化（双门槛：等级 AND 学科综合考试）</h2>
 <table>
-<tr><th>孩子</th><th>年级</th><th>战斗属性（=科目）</th><th>题目示例（语/数/英）</th></tr>
-<tr><td>小宝</td><td>1–2 年级</td><td>语文 / 数学 / 英语</td><td>识字拼音 / 20 以内加减 / 简单单词认读</td></tr>
-<tr><td>大宝</td><td>初一</td><td>语文 / 数学 / 英语</td><td>阅读理解 / 分数·方程 / 时态·从句</td></tr>
+<tr><th>门槛</th><th>条件</th><th>含义</th></tr>
+<tr><td>等级门槛</td><td>妖怪 LV ≥ T_LV <span class="ph">[PLACEHOLDER]</span></td><td>传统练级积累</td></tr>
+<tr><td>学科综合考试</td><td>在本妖怪属性科目上通过综合考：抽 N 题@本账号年级（覆盖≥3知识点），正确率≥X% <span class="ph">[PLACEHOLDER]</span></td><td>以学代练，必过项</td></tr>
 </table>
-<p>两孩共用同一张克制表（语数英三系）；同一只妖怪、同一动画，<b>背后是两套年级题</b>——这就是"玩法一样、题目不同"。</p>
+<ul>
+<li><strong>综合考试流程</strong>：LV 达标后，玩家在妖怪界面发起「进化考试」→ 系统从本妖怪属性科目、按登录身份对应年级池抽 N 题（同样受 §8 题型限制约束）→ 达标即进化；不达标可重考（软惩罚、无损失）。</li>
+<li><strong>为何双门槛</strong>：等级保证战斗投入，考试保证学科掌握；学习成为进化的硬前置，无法靠纯刷怪绕过。更硬核更慢，但契合「课程学习结合游戏」初衷。</li>
+<li><strong>演出</strong>：变形动画 + 新形态 + 数值提升 + 解锁新招式类型。</li>
+</ul>
 
-<h2>9. 经济草图（各孩子独立池，避免年长碾压）</h2>
+<h2>8. 题型 → 答题限制映射</h2>
+<table>
+<tr><th>题型</th><th>限制</th><th>超时/失败结算</th><th>数值 <span class="ph">[PLACEHOLDER]</span></th></tr>
+<tr><td>选择题</td><td><strong>统一倒计时</strong></td><td>视为 miss</td><td>时限 10s（统一，不按年级缩放）</td></tr>
+<tr><td>填空题</td><td>无时限、尝试 ≤ K 次</td><td>用完 = miss</td><td>K=3</td></tr>
+<tr><td>连线/拖拽</td><td>无时限</td><td>错连可重连</td><td>—</td></tr>
+<tr><td>跟读/听音（英）</td><td>录制 ≤ M 次</td><td>超次 = miss</td><td>M=2</td></tr>
+</table>
+<blockquote>统一时限判断：题库已按登录身份分池（初一 vs 1–2 年级），难度天然适龄，故不再叠加年级缩放。但需信号 F 盯小宝是否因计时焦虑乱点。综合考试同样适用本表且可更紧。</blockquote>
+
+<h2>9. 身份即题库路由（单一路由键）</h2>
+<table>
+<tr><th>登录身份</th><th>年级</th><th>战斗属性（=科目）</th><th>题库来源</th></tr>
+<tr><td>大宝</td><td>初一</td><td>语文/数学/英语</td><td>初一语数英池</td></tr>
+<tr><td>小宝（二宝）</td><td>1–2 年级</td><td>语文/数学/英语</td><td>1–2 年级语数英池</td></tr>
+</table>
+<p>路由规则：<code>登录身份 → 年级 → 题库</code>。出什么题完全由谁登录决定；该身份同时决定 §7 综合考试抽题年级与 §8 题型限制适用性。</p>
+
+<h2>10. 经济草图（各孩子独立池）</h2>
 <table>
 <tr><th>资源</th><th>Source</th><th>Sink</th></tr>
-<tr><td>经验 XP</td><td>战斗胜利</td><td>升级 / 进化（掌握度门槛）</td></tr>
-<tr><td>知识结晶</td><td>答对题（按难度给）</td><td>进化、解锁新招式</td></tr>
+<tr><td>经验 XP</td><td>战斗胜利</td><td>升级 / 进化（等级门槛）</td></tr>
+<tr><td>知识结晶</td><td>答对题（按难度）</td><td>进化、解锁新招式</td></tr>
 <tr><td>捕获球</td><td>每日登录少量 / 结晶兑换</td><td>收服消耗</td></tr>
 <tr><td>伤药</td><td>结晶兑换 / 探索</td><td>回血</td></tr>
 </table>
 
-<h2>10. 竖切走查</h2>
-<h3>10.1 小宝（1–2 年级）打「墨点点」（数学系）</h3>
+<h2>11. 竖切走查</h2>
+<h3>11.1 小宝（1–2 年级）打「墨点点」（数学系）</h3>
 <table>
 <tr><th>步</th><th>玩家动作</th><th>系统反馈</th><th>状态</th></tr>
-<tr><td>1</td><td>走到野生「墨点点」（数学系）旁</td><td>遭遇！火灵狐（语文系）vs 墨点点，BGM 起</td><td>进入战斗</td></tr>
-<tr><td>2</td><td>回合1：题「3 + 5 = ?」（数学·1年级）</td><td>火灵狐蓄力光圈</td><td>出题</td></tr>
-<tr><td>3</td><td>小宝点 8（对）</td><td>✅ 扑击 + 命中音 + 「-12」</td><td>墨点点 HP 30→18</td></tr>
-<tr><td>4</td><td>墨点点反击（数学克语文 ×0.67）</td><td>小伤数字「-4」</td><td>火灵狐 HP 100→96</td></tr>
-<tr><td>5</td><td>回合2~N 持续答对</td><td>墨点点 HP 递减</td><td>墨点点 HP 18→0</td></tr>
-<tr><td>6</td><td>墨点点 HP 0</td><td>「收服！」金光按钮</td><td>收服窗口</td></tr>
-<tr><td>7</td><td>收服题「7 - 2 = ?」（稍难）</td><td>捕获球旋转</td><td>出题</td></tr>
-<tr><td>8</td><td>小宝答对</td><td>✅ 入队 + 结晶 +1 + 图鉴 +1</td><td>收服成功</td></tr>
+<tr><td>1</td><td>走到墨点点（数学系）旁</td><td>遭遇！火灵狐（语文系）vs 墨点点</td><td>进入战斗</td></tr>
+<tr><td>2</td><td>回合1：题「3+5=?」（数学·1年级·选择题10s）</td><td>火灵狐蓄力 + 倒计时环</td><td>出题</td></tr>
+<tr><td>3</td><td>小宝点 8（对）</td><td>✅ 扑击 +「-12」</td><td>墨点点 30→18</td></tr>
+<tr><td>4</td><td>墨点点反击（数学克语文 ×0.67）</td><td>小伤「-4」</td><td>火灵狐 100→96</td></tr>
+<tr><td>5</td><td>回合2~N 持续答对</td><td>墨点点 HP 递减</td><td>18→0</td></tr>
+<tr><td>6</td><td>墨点点 HP 0</td><td>「收服！」金光</td><td>收服窗口</td></tr>
+<tr><td>7</td><td>收服题「7-2=?」（稍难·填空限3次）</td><td>捕获球旋转</td><td>出题</td></tr>
+<tr><td>8</td><td>小宝答对</td><td>✅ 入队 + 结晶+1 + 图鉴+1</td><td>收服成功</td></tr>
 </table>
-<p>→ 单场约 2–4 分钟。注：火灵狐(语文) 打 墨点点(数学) 时，<b>数学克语文</b>，火灵狐反而被克——演示"属性不对会吃亏"，但小宝靠答对率高仍能赢（命中系数主导）。真机重点看信号 B（她是否感知到自己被克）。</p>
 
-<h3>10.2 大宝（初一）打「潮汐兽」（英语系）</h3>
+<h3>11.2 大宝（初一）打「潮汐兽」（英语系）</h3>
 <table>
 <tr><th>步</th><th>玩家动作</th><th>系统反馈</th><th>状态</th></tr>
-<tr><td>1</td><td>走到野生「潮汐兽」（英语系）旁</td><td>雷鸣兽（数学系）vs 潮汐兽</td><td>进入战斗</td></tr>
-<tr><td>2</td><td>回合1：题「Choose the past tense of 'go'」</td><td>雷鸣兽蓄电</td><td>出题</td></tr>
-<tr><td>3</td><td>大宝点 went（对）</td><td>✅ 放电 + 「-15」；数学克英语 → ×1.5 → 实际 -22</td><td>潮汐兽 HP 60→38</td></tr>
-<tr><td>4</td><td>潮汐兽反击（英语被数学克 ×0.67）</td><td>小伤「-5」</td><td>雷鸣兽 HP 120→115</td></tr>
+<tr><td>1</td><td>走到潮汐兽（英语系）旁</td><td>雷鸣兽（数学系）vs 潮汐兽</td><td>进入战斗</td></tr>
+<tr><td>2</td><td>回合1：题「Choose the past tense of 'go'」（初一·英·选择题10s）</td><td>雷鸣兽蓄电</td><td>出题</td></tr>
+<tr><td>3</td><td>大宝点 went（对）</td><td>✅ 放电 -15；数学克英语 ×1.5 → -22</td><td>潮汐兽 60→38</td></tr>
+<tr><td>4</td><td>潮汐兽反击（英语被数学克 ×0.67）</td><td>小伤「-5」</td><td>雷鸣兽 120→115</td></tr>
 <tr><td>5</td><td>持续答对</td><td>潮汐兽 HP→0</td><td>收服窗口</td></tr>
-<tr><td>6</td><td>收服题（较难初中英语）答对</td><td>✅ 入队 + 结晶 + 图鉴</td><td>收服成功</td></tr>
+<tr><td>6</td><td>收服题（较难初中英语·填空）答对</td><td>✅ 入队 + 结晶 + 图鉴</td><td>收服成功</td></tr>
 </table>
-<p>→ 同壳换轨验证：机制完全一样，只题变难、妖怪数值更高。<b>克制倍率对两孩一致</b>，大宝不会因题难自动碾压小宝的属性博弈。</p>
 
-<h2>11. 这条循环「坏掉长什么样」（playtest 失败信号）</h2>
+<h3>11.3 进化双门槛走查（小宝的语文妖怪「火灵狐」）</h3>
+<table>
+<tr><th>步</th><th>条件</th><th>系统反馈</th></tr>
+<tr><td>1</td><td>火灵狐 LV 达 T_LV</td><td>妖怪界面亮起「可进化考试」</td></tr>
+<tr><td>2</td><td>小宝发起「进化考试」</td><td>从语文·1–2年级池抽 N 题（≥3知识点，选择题含10s倒计时）</td></tr>
+<tr><td>3</td><td>正确率 ≥ X%</td><td>✅ 变形动画 + 新形态 + HP/ATK 提升 + 解锁新招式</td></tr>
+<tr><td>4</td><td>未达标</td><td>软提示「再复习一下」，可重考无损失</td></tr>
+</table>
+
+<h2>12. 系统交互矩阵</h2>
+<table>
+<tr><th>系统对</th><th>关系</th><th>备注</th></tr>
+<tr><td>登录身份 × 题库</td><td class="intended">intended</td><td>登陆即定年级，单一路由键</td></tr>
+<tr><td>妖怪属性 × 考试科目</td><td class="intended">intended</td><td>考本妖怪的科目</td></tr>
+<tr><td>选择题计时 × 软惩罚</td><td class="intended">intended</td><td>超时 = miss = 己方挨打</td></tr>
+<tr><td>综合考 × 战斗循环</td><td class="ok">acceptable 但需监控</td><td>考试为必过门槛，靠难度档+限时压住</td></tr>
+<tr><td>双门槛 × 进度节奏</td><td class="risk">risk</td><td>进化更慢，需信号 D/F 监控卡墙</td></tr>
+</table>
+
+<h2>13. Playtest 失败信号</h2>
 <table>
 <tr><th>信号</th><th>现象</th><th>含义</th></tr>
-<tr><td>A</td><td>孩子觉得战斗像考试，不兴奋</td><td>学习没融进爽感，需让出题更「招式化」</td></tr>
-<tr><td>B</td><td>孩子不知道自己被克（无克制反馈）</td><td>克制系统没做出来/没演出，需加属性提示</td></tr>
-<tr><td>C</td><td>练级碾压克制（高 LV 无视倍率）</td><td>倍率失衡，需复查 LV 不碰倍率的纪律</td></tr>
-<tr><td>D</td><td>几周触发不了进化</td><td>阈值 / XP 曲线错</td></tr>
-<tr><td>E</td><td>答错题与扣血因果脱节（乱点不看题）</td><td>反馈通道断了，需强化"答错=挨打"的视听</td></tr>
+<tr><td>A</td><td>觉得战斗像考试，不兴奋</td><td>学习没融进爽感</td></tr>
+<tr><td>B</td><td>不知道自己被克（无克制反馈）</td><td>克制系统没演出</td></tr>
+<tr><td>C</td><td>练级碾压克制（高 LV 无视倍率）</td><td>倍率失衡</td></tr>
+<tr><td>D</td><td>几周触发不了进化 / 双门槛卡墙</td><td>阈值或考试太难</td></tr>
+<tr><td>E</td><td>答错题与扣血因果脱节（乱点不看题）</td><td>反馈通道断了</td></tr>
+<tr><td>F</td><td>小宝因统一计时焦虑、乱点</td><td>10s 仍压低龄，需放宽</td></tr>
 </table>
-<p><b>成功定义</b>：孩子连打多场、主动刷怪，并出现「我的 XX 进化了！」式欢呼；且能说出"我用语文打英语赚到了"。</p>
 
-<h2>12. 结论</h2>
+<h2>14. 结论</h2>
 <ul>
-<li>Fun Hypothesis 在战斗切片里<b>逻辑自洽</b>：答题=出招、打赢=升级、攒够=进化，学习全程驱动 RPG 主循环。</li>
-<li>三系 RPS + LV 不碰倍率，已规避"年长练级碾压年幼"的结构性风险。</li>
-<li>最大风险在 <b>A（融合生硬）</b>、<b>B（克制无感）</b>、<b>E（因果脱节）</b>——真机重点看。</li>
-<li>下一步：纸面通过后进 Godot 搭 <b>P1 MVP</b>（1 妖怪 + 战斗 + 收服 + 进化，语文；双孩年级题分流）。</li>
+<li>Fun Hypothesis 在战斗切片里逻辑自洽：答题=出招、打赢=升级、双门槛=进化，学习全程驱动 RPG。</li>
+<li>三系 RPS + LV 不碰倍率规避年长碾压；身份路由 + 双门槛把"学习"焊成进化硬前置。</li>
+<li>最大风险 A / B / E / F——真机重点看。</li>
+<li>下一步：进 Godot 搭 P1 MVP（1 妖怪 + 战斗 + 收服 + 进化双门槛，语文；双孩身份路由 + 题型限制）。</li>
 </ul>
 </body>
 </html>
